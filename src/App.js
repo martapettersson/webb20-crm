@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import CustomerListPage from "./pages/CustomerListPage";
 import LoginPage from "./pages/LoginPage";
 
 export default function App() {
@@ -9,6 +10,9 @@ export default function App() {
 			<Switch>
 				<Route path="/login">
 					<LoginPage />
+				</Route>
+				<Route path="/home">
+					<CustomerListPage />
 				</Route>
 			</Switch>
 		</div>

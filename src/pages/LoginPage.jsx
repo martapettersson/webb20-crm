@@ -28,6 +28,7 @@ export default function LoginPage() {
 			.then((res) => res.json())
 			.then((data) => {
 				localStorage.setItem("MARTA_WEBB20", data.token);
+				history.push("/home");
 			});
 	};
 	return (
