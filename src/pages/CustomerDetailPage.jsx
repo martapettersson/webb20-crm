@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export default function CustomerDetailPage(props) {
 	const customerId = props.match.params.id;
 	const [customerItem, setCustomerItem] = useState(null);
 	const history = useHistory();
 
-	const getGustomerItem = () => {
+	const getCustomerItem = () => {
 		const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
 		const token = localStorage.getItem("MARTA_WEBB20");
 		fetch(url, {
@@ -22,7 +22,7 @@ export default function CustomerDetailPage(props) {
 	};
 
 	useEffect(() => {
-		getGustomerItem();
+		getCustomerItem();
 	}, []);
 
 	const deleteCustomer = () => {
@@ -82,7 +82,18 @@ export default function CustomerDetailPage(props) {
 							</tr>
 						</tbody>
 					</table>
-					<button onClick={deleteCustomer}>Delete Customer</button>
+					<button className="btn btn-secondary" onClick={deleteCustomer}>
+						Delete Customer
+					</button>
+					<Link
+						className="btn btn-secondary"
+						to={`/customers/${customerId}/edit`}
+					>
+						Edit Customer
+					</Link>
+					<Link className="btn btn-secondary" to="/home">
+						Home
+					</Link>
 				</div>
 			) : (
 				<span>Loading Data...</span>
