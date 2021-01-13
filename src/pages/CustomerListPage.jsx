@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CustomerListItem from "../components/CustomerListItem";
 
 export default function CustomerListPage() {
 	const [customerList, setCustomerList] = useState([]);
@@ -19,12 +20,20 @@ export default function CustomerListPage() {
 			},
 		})
 			.then((res) => res.json())
-			.then((data) => console.log(data));
+			.then((data) => setCustomerList(data.results));
 	};
+
+	console.log(customerList);
 
 	return (
 		<div>
 			<h2>Home</h2>
+			<h3>Customer List</h3>
+			<ul>
+				{customerList.map((item) => {
+					return <CustomerListItem key={item.id} customerData={item} />;
+				})}
+			</ul>
 		</div>
 	);
 }
