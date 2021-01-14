@@ -11,9 +11,6 @@ export default function App() {
 		<div className="container">
 			<h1>CRM</h1>
 			<Switch>
-				<Route path="/login">
-					<LoginPage />
-				</Route>
 				<Route path="/home/create">
 					<CustomerCreatePage />
 				</Route>
@@ -21,6 +18,9 @@ export default function App() {
 				<Route path="/home/:id" component={CustomerDetailPage} />
 				<Route path="/home">
 					<CustomerListPage />
+				</Route>
+				<Route path="/">
+					<LoginPage />
 				</Route>
 			</Switch>
 		</div>

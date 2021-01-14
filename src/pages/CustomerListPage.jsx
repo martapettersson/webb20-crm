@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CustomerListItem from "../components/CustomerListItem";
+import { Link } from "react-router-dom";
 
 export default function CustomerListPage() {
 	const [customerList, setCustomerList] = useState([]);
@@ -55,6 +56,9 @@ export default function CustomerListPage() {
 					return <CustomerListItem key={item.id} customerData={item} />;
 				})}
 			</ul>
+			<Link className="btn btn-secondary" to="/home/create">
+				Create New Customer
+			</Link>
 		</div>
 	);
 }
