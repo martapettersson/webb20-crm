@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function LoginPage() {
+	const { setCustomerList, setUser } = useContext(UserContext);
 	const [formData, setFormData] = useState({
 		email: "Marta.Pettersson@yh.nackademin.se",
 		password: "reactjsrules",
@@ -28,9 +30,46 @@ export default function LoginPage() {
 			.then((res) => res.json())
 			.then((data) => {
 				localStorage.setItem("MARTA_WEBB20", data.token);
+				getCustomerList();
+				getUser();
 				history.push("/home");
 			});
 	};
+
+	useEffect(() => {
+		console.log("anrop");
+	}, []);
+
+	//Get Customer List from the backend, since we have a verified token when we login
+	const getCustomerList = () => {
+		const url = "https://frebi.willandskill.eu/api/v1/customers/";
+		const token = localStorage.getItem("MARTA_WEBB20");
+		fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => setCustomerList(data.results));
+	};
+
+	// Retrieve data from the backend about the user
+	const getUser = () => {
+		const url = "https://frebi.willandskill.eu/api/v1/me/";
+		const token = localStorage.getItem("MARTA_WEBB20");
+		fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => setUser(data));
+	};
+
 	return (
 		<div>
 			<form onSubmit={handleOnSubmit}>

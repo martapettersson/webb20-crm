@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export default function CustomerCreatePage() {
 	const [formData, setFormData] = useState({});
@@ -55,7 +55,12 @@ export default function CustomerCreatePage() {
 				{renderInput("reference", "Reference")}
 				{renderInput("vatNr", "VAT Nr")}
 				{renderInput("website", "Website", "url")}
-				<button type="submit">Create Customer</button>
+				<button className="btn btn-secondary" type="submit">
+					Create Customer
+				</button>
+				<Link className="btn btn-secondary" to="/home">
+					Home
+				</Link>
 			</form>
 		</div>
 	);

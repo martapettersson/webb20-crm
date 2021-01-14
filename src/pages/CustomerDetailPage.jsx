@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function CustomerDetailPage(props) {
 	const customerId = props.match.params.id;
-	const [customerItem, setCustomerItem] = useState(null);
+	const { customerList } = useContext(UserContext);
+	const customerItem = customerList.filter(
+		(customer) => customer.id == customerId
+	)[0];
 	const history = useHistory();
-
-	const getCustomerItem = () => {
-		const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
-		const token = localStorage.getItem("MARTA_WEBB20");
-		fetch(url, {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setCustomerItem(data);
-			});
-	};
-
-	useEffect(() => {
-		getCustomerItem();
-	}, []);
 
 	const deleteCustomer = () => {
 		const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
@@ -85,10 +70,7 @@ export default function CustomerDetailPage(props) {
 					<button className="btn btn-secondary" onClick={deleteCustomer}>
 						Delete Customer
 					</button>
-					<Link
-						className="btn btn-secondary"
-						to={`/customers/${customerId}/edit`}
-					>
+					<Link className="btn btn-secondary" to={`/home/${customerId}/edit`}>
 						Edit Customer
 					</Link>
 					<Link className="btn btn-secondary" to="/home">

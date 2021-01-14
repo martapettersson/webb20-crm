@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function CustomerEditPage(props) {
 	const customerId = props.match.params.id;
 	const [formData, setFormData] = useState({});
+	const { customerList, setCustomerList } = useContext(UserContext);
+	const customerItem = customerList.filter(
+		(customer) => customer.id == customerId
+	)[0];
 	const history = useHistory();
-
-	const getCustomerItem = () => {
-		const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
-		const token = localStorage.getItem("MARTA_WEBB20");
-		fetch(url, {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => setFormData(data));
-	};
+	console.log(customerList);
+	console.log(customerItem);
 
 	useEffect(() => {
-		getCustomerItem();
+		setFormData(customerItem);
 	}, []);
 
 	const handleOnChange = (e) => {
@@ -31,6 +25,7 @@ export default function CustomerEditPage(props) {
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
+
 		const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
 		const token = localStorage.getItem("MARTA_WEBB20");
 		fetch(url, {
@@ -42,7 +37,14 @@ export default function CustomerEditPage(props) {
 			},
 		})
 			.then((res) => res.json())
-			.then(() => history.push(`/home/${customerId}/`));
+			.then(() => {
+				const newCustomerList = customerList.filter(
+					(customer) => customer.id != customerId
+				);
+				newCustomerList.push(formData);
+				setCustomerList(newCustomerList);
+				history.push(`/home/${customerId}/`);
+			});
 	};
 
 	const renderInput = (name, label, type) => {
