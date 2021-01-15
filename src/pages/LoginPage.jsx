@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 export default function LoginPage() {
-	const { getCustomerList, getUser } = useContext(UserContext);
+	const { getCustomerList, getUser, setLoginAlert } = useContext(UserContext);
 	const [formData, setFormData] = useState({
 		email: "Marta.Pettersson@yh.nackademin.se",
 		password: "reactjsrules",
@@ -30,7 +30,9 @@ export default function LoginPage() {
 			.then((res) => res.json())
 			.then((data) => {
 				localStorage.setItem("MARTA_WEBB20", data.token);
+				setLoginAlert("login");
 				getCustomerList();
+				console.log("1 anrop");
 				getUser();
 				history.push("/home");
 			});

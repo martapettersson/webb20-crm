@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 export default function App() {
 	const [customerList, setCustomerList] = useState([]);
 	const [user, setUser] = useState({});
+	const [loginAlert, setLoginAlert] = useState("");
 	const getCustomerList = () => {
 		const url = "https://frebi.willandskill.eu/api/v1/customers/";
 		const token = localStorage.getItem("MARTA_WEBB20");
@@ -45,6 +46,8 @@ export default function App() {
 		setUser,
 		getCustomerList,
 		getUser,
+		loginAlert,
+		setLoginAlert,
 	};
 
 	return (
