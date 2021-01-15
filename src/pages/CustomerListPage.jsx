@@ -13,10 +13,11 @@ export default function CustomerListPage() {
 		setLoginAlert,
 	} = useContext(UserContext);
 	useEffect(() => {
-		if (!customerList) {
+		if (!customerList && loginAlert !== "login") {
 			getCustomerList();
 			getUser();
 			console.log("2 anrop");
+			setLoginAlert("");
 		} else if (loginAlert === "login") {
 			setLoginAlert("");
 		}
