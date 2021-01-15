@@ -18,7 +18,7 @@ export default function CustomerDetailPage(props) {
 	const history = useHistory();
 
 	useEffect(() => {
-		if (customerList.length < 1) {
+		if (!customerList) {
 			getCustomerList();
 			getUser();
 		}

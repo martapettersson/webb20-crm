@@ -8,7 +8,7 @@ import CustomerListPage from "./pages/CustomerListPage";
 import LoginPage from "./pages/LoginPage";
 
 export default function App() {
-	const [customerList, setCustomerList] = useState([]);
+	const [customerList, setCustomerList] = useState(null);
 	const [user, setUser] = useState({});
 	const [loginAlert, setLoginAlert] = useState("");
 	const getCustomerList = () => {

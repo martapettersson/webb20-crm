@@ -14,7 +14,7 @@ export default function CustomerEditPage(props) {
 	const history = useHistory();
 
 	useEffect(() => {
-		if (customerList.length < 1) {
+		if (!customerList) {
 			history.push(`/home/${customerId}/`);
 		} else {
 			setFormData(customerItem);

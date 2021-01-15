@@ -15,7 +15,7 @@ export default function CustomerCreatePage() {
 	const history = useHistory();
 
 	useEffect(() => {
-		if (customerList.length < 1) {
+		if (!customerList) {
 			getCustomerList();
 			getUser();
 		}
