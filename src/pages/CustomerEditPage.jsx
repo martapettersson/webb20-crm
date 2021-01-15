@@ -1,20 +1,23 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
 
 export default function CustomerEditPage(props) {
 	const customerId = props.match.params.id;
 	const [formData, setFormData] = useState({});
-	const { customerList, setCustomerList } = useContext(UserContext);
+	const { customerList, setCustomerList, setUser } = useContext(UserContext);
 	const customerItem = customerList.filter(
 		(customer) => customer.id == customerId
 	)[0];
 	const history = useHistory();
-	console.log(customerList);
-	console.log(customerItem);
 
 	useEffect(() => {
-		setFormData(customerItem);
+		if (customerList.length < 1) {
+			history.push(`/home/${customerId}/`);
+		} else {
+			setFormData(customerItem);
+		}
 	}, []);
 
 	const handleOnChange = (e) => {
@@ -37,11 +40,11 @@ export default function CustomerEditPage(props) {
 			},
 		})
 			.then((res) => res.json())
-			.then(() => {
+			.then((data) => {
 				const newCustomerList = customerList.filter(
 					(customer) => customer.id != customerId
 				);
-				newCustomerList.push(formData);
+				newCustomerList.push(data);
 				setCustomerList(newCustomerList);
 				history.push(`/home/${customerId}/`);
 			});
@@ -63,20 +66,28 @@ export default function CustomerEditPage(props) {
 
 	return (
 		<div>
+			<NavBar />
 			<h1>Edit Customer</h1>
-			<form onSubmit={handleOnSubmit}>
-				{renderInput("name", "Customer Name")}
-				{renderInput("email", "Customer Email", "email")}
-				{renderInput("organisationNr", "Organisation Nr")}
-				{renderInput("paymentTerm", "Payment Term", "number")}
-				{renderInput("phoneNumber", "Phone Nr", "tel")}
-				{renderInput("reference", "Reference")}
-				{renderInput("vatNr", "VAT Nr")}
-				{renderInput("website", "Website", "url")}
-				<button className="btn btn-secondary" type="submit">
-					Update Customer
-				</button>
-			</form>
+			{customerList ? (
+				<form onSubmit={handleOnSubmit}>
+					{renderInput("name", "Customer Name")}
+					{renderInput("email", "Customer Email", "email")}
+					{renderInput("organisationNr", "Organisation Nr")}
+					{renderInput("paymentTerm", "Payment Term", "number")}
+					{renderInput("phoneNumber", "Phone Nr", "tel")}
+					{renderInput("reference", "Reference")}
+					{renderInput("vatNr", "VAT Nr")}
+					{renderInput("website", "Website", "url")}
+					<button className="btn btn-secondary" type="submit">
+						Update Customer
+					</button>
+					<Link className="btn btn-secondary" to="/home">
+						Back
+					</Link>
+				</form>
+			) : (
+				<p>Loading data...</p>
+			)}
 		</div>
 	);
 }

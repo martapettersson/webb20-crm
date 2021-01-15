@@ -1,14 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
 
 export default function CustomerDetailPage(props) {
 	const customerId = props.match.params.id;
-	const { customerList } = useContext(UserContext);
+	const {
+		customerList,
+		setCustomerList,
+		getCustomerList,
+		getUser,
+	} = useContext(UserContext);
 	const customerItem = customerList.filter(
 		(customer) => customer.id == customerId
 	)[0];
 	const history = useHistory();
+
+	useEffect(() => {
+		if (customerList.length < 1) {
+			getCustomerList();
+			getUser();
+		}
+	}, []);
 
 	const deleteCustomer = () => {
 		const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
@@ -19,11 +32,18 @@ export default function CustomerDetailPage(props) {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
 			},
-		}).then(() => history.push("/home"));
+		}).then(() => {
+			const newCustomerList = customerList.filter(
+				(customer) => customer.id != customerId
+			);
+			setCustomerList(newCustomerList);
+			history.push("/home");
+		});
 	};
 
 	return (
 		<div>
+			<NavBar />
 			{customerItem ? (
 				<div>
 					<h3>{customerItem.name}</h3>
@@ -72,9 +92,6 @@ export default function CustomerDetailPage(props) {
 					</button>
 					<Link className="btn btn-secondary" to={`/home/${customerId}/edit`}>
 						Edit Customer
-					</Link>
-					<Link className="btn btn-secondary" to="/home">
-						Home
 					</Link>
 				</div>
 			) : (

@@ -1,29 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CustomerListItem from "../components/CustomerListItem";
-import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import NavBar from "../components/NavBar";
 
 export default function CustomerListPage() {
-	const { customerList, user } = useContext(UserContext);
-
+	const { customerList, getCustomerList, getUser } = useContext(UserContext);
+	useEffect(() => {
+		if (customerList.length < 1) {
+			getCustomerList();
+			getUser();
+		}
+	}, []);
 	return (
 		<div>
-			<h2>Home</h2>
-			<div className="border">
-				<p>
-					{user.firstName} {user.lastName}
-				</p>
-				<p>{user.email}</p>
-			</div>
-			<h3>Customer List</h3>
+			<NavBar />
+			<h3>Customers</h3>
 			<ul>
 				{customerList.map((item) => {
 					return <CustomerListItem key={item.id} customerData={item} />;
 				})}
 			</ul>
-			<Link className="btn btn-secondary" to="/home/create">
-				Create New Customer
-			</Link>
 		</div>
 	);
 }

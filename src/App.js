@@ -10,15 +10,45 @@ import LoginPage from "./pages/LoginPage";
 export default function App() {
 	const [customerList, setCustomerList] = useState([]);
 	const [user, setUser] = useState({});
+	const getCustomerList = () => {
+		const url = "https://frebi.willandskill.eu/api/v1/customers/";
+		const token = localStorage.getItem("MARTA_WEBB20");
+		fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => setCustomerList(data.results));
+	};
+
+	const getUser = () => {
+		const url = "https://frebi.willandskill.eu/api/v1/me/";
+		const token = localStorage.getItem("MARTA_WEBB20");
+		fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => setUser(data));
+	};
+
 	const userContextValue = {
 		customerList,
 		setCustomerList,
 		user,
 		setUser,
+		getCustomerList,
+		getUser,
 	};
+
 	return (
 		<div className="container">
-			<h1>CRM</h1>
 			<UserContext.Provider value={userContextValue}>
 				<Switch>
 					<Route path="/home/create">

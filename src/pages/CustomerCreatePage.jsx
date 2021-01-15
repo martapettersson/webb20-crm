@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import { UserContext } from "../context/UserContext";
 
 export default function CustomerCreatePage() {
+	const {
+		customerList,
+		setCustomerList,
+		getCustomerList,
+		getUser,
+	} = useContext(UserContext);
 	const [formData, setFormData] = useState({});
 	const history = useHistory();
+
+	useEffect(() => {
+		if (customerList.length < 1) {
+			getCustomerList();
+			getUser();
+		}
+	}, []);
 
 	const renderInput = (name, label, type) => {
 		return (
@@ -39,29 +54,35 @@ export default function CustomerCreatePage() {
 			},
 		})
 			.then((res) => res.json())
-			.then(() => {
+			.then((data) => {
+				setCustomerList([...customerList, data]);
 				history.push("/home");
 			});
 	};
+
 	return (
 		<div>
-			<h2>Create Customer</h2>
-			<form onSubmit={handleOnSubmit}>
-				{renderInput("name", "Customer Name")}
-				{renderInput("email", "Customer Email", "email")}
-				{renderInput("organisationNr", "Organisation Nr")}
-				{renderInput("paymentTerm", "Payment Term", "number")}
-				{renderInput("phoneNumber", "Phone Nr", "tel")}
-				{renderInput("reference", "Reference")}
-				{renderInput("vatNr", "VAT Nr")}
-				{renderInput("website", "Website", "url")}
-				<button className="btn btn-secondary" type="submit">
-					Create Customer
-				</button>
-				<Link className="btn btn-secondary" to="/home">
-					Home
-				</Link>
-			</form>
+			<NavBar />
+			{customerList ? (
+				<div>
+					<h2>Create Customer</h2>
+					<form onSubmit={handleOnSubmit}>
+						{renderInput("name", "Customer Name")}
+						{renderInput("email", "Customer Email", "email")}
+						{renderInput("organisationNr", "Organisation Nr")}
+						{renderInput("paymentTerm", "Payment Term", "number")}
+						{renderInput("phoneNumber", "Phone Nr", "tel")}
+						{renderInput("reference", "Reference")}
+						{renderInput("vatNr", "VAT Nr")}
+						{renderInput("website", "Website", "url")}
+						<button className="btn btn-secondary" type="submit">
+							Create Customer
+						</button>
+					</form>
+				</div>
+			) : (
+				<p>Loading data...</p>
+			)}
 		</div>
 	);
 }
