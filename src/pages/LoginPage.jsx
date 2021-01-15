@@ -38,22 +38,32 @@ export default function LoginPage() {
 
 	return (
 		<div>
+			<h2>Welcome to CRM</h2>
+			<h4>Log in</h4>
 			<form onSubmit={handleOnSubmit}>
-				<label>Email</label>
-				<input
-					name="email"
-					value={formData.email}
-					onChange={handleOnChange}
-					type="text"
-				/>
-				<label>Password</label>
-				<input
-					name="password"
-					value={formData.password}
-					onChange={handleOnChange}
-					type="text"
-				/>
-				<button type="submit">Log in</button>
+				<div className="mb-3">
+					<label className="form-label">Email</label>
+					<input
+						name="email"
+						value={formData.email}
+						onChange={handleOnChange}
+						type="text"
+						className="form-control"
+					/>
+				</div>
+				<div className="mb-3">
+					<label className="form-label">Password</label>
+					<input
+						name="password"
+						value={formData.password}
+						onChange={handleOnChange}
+						type="text"
+						className="form-control"
+					/>
+				</div>
+				<button className="btn btn-secondary" type="submit">
+					Log in
+				</button>
 			</form>
 		</div>
 	);

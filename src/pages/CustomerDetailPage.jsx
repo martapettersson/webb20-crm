@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
+import Footer from "../components/Footer";
 
 export default function CustomerDetailPage(props) {
 	const customerId = props.match.params.id;
@@ -47,39 +48,41 @@ export default function CustomerDetailPage(props) {
 			{customerItem ? (
 				<div>
 					<h3>{customerItem.name}</h3>
-					<table>
+					<table className="table table-bordered">
 						<tbody>
 							<tr>
-								<td>Organisation Number</td>
-								<td>{customerItem.organisationNr}</td>
+								<td className="table-secondary">Organisation Number</td>
+								<td className="table-secondary">
+									{customerItem.organisationNr}
+								</td>
 							</tr>
 							<tr>
-								<td>Payment Term</td>
-								<td>{customerItem.paymentTerm}</td>
+								<td className="table-secondary">Payment Term</td>
+								<td className="table-secondary">{customerItem.paymentTerm}</td>
 							</tr>
 							<tr>
-								<td>Phone Number</td>
-								<td>{customerItem.phoneNumber}</td>
+								<td className="table-secondary">Phone Number</td>
+								<td className="table-secondary">{customerItem.phoneNumber}</td>
 							</tr>
 							<tr>
-								<td>Reference</td>
-								<td>{customerItem.reference}</td>
+								<td className="table-secondary">Reference</td>
+								<td className="table-secondary">{customerItem.reference}</td>
 							</tr>
 							<tr>
-								<td>VAT Number</td>
-								<td>{customerItem.vatNr}</td>
+								<td className="table-secondary">VAT Number</td>
+								<td className="table-secondary">{customerItem.vatNr}</td>
 							</tr>
 							<tr>
-								<td>Email</td>
-								<td>
+								<td className="table-secondary">Email</td>
+								<td className="table-secondary">
 									<a href={`mailto:${customerItem.email}`}>
 										{customerItem.email}
 									</a>
 								</td>
 							</tr>
 							<tr>
-								<td>Website</td>
-								<td>
+								<td className="table-secondary">Website</td>
+								<td className="table-secondary">
 									<a href={customerItem.website} target="_blank">
 										{customerItem.website}
 									</a>
@@ -93,6 +96,10 @@ export default function CustomerDetailPage(props) {
 					<Link className="btn btn-secondary" to={`/home/${customerId}/edit`}>
 						Edit Customer
 					</Link>
+					<Link className="btn btn-secondary" to="/home">
+						Back
+					</Link>
+					<Footer />
 				</div>
 			) : (
 				<span>Loading Data...</span>

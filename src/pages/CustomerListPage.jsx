@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import CustomerListItem from "../components/CustomerListItem";
 import { UserContext } from "../context/UserContext";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 export default function CustomerListPage() {
 	const { customerList, getCustomerList, getUser } = useContext(UserContext);
@@ -15,11 +16,12 @@ export default function CustomerListPage() {
 		<div>
 			<NavBar />
 			<h3>Customers</h3>
-			<ul>
+			<ul className="list-group">
 				{customerList.map((item) => {
 					return <CustomerListItem key={item.id} customerData={item} />;
 				})}
 			</ul>
+			<Footer />
 		</div>
 	);
 }

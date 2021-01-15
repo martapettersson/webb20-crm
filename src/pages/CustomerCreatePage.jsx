@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
 
@@ -22,14 +23,17 @@ export default function CustomerCreatePage() {
 
 	const renderInput = (name, label, type) => {
 		return (
-			<div>
-				<label>{label}</label>
-				<input
-					type={type || "text"}
-					name={name}
-					onChange={handleOnChange}
-					value={formData[name] || ""}
-				/>
+			<div className="mb-3 form-group row">
+				<label className="col-sm-2 col-form-label">{label}</label>
+				<div className="col-sm-10">
+					<input
+						type={type || "text"}
+						name={name}
+						onChange={handleOnChange}
+						value={formData[name] || ""}
+						className="form-control"
+					/>
+				</div>
 			</div>
 		);
 	};
@@ -66,7 +70,7 @@ export default function CustomerCreatePage() {
 			{customerList ? (
 				<div>
 					<h2>Create Customer</h2>
-					<form onSubmit={handleOnSubmit}>
+					<form className="mb-3" onSubmit={handleOnSubmit}>
 						{renderInput("name", "Customer Name")}
 						{renderInput("email", "Customer Email", "email")}
 						{renderInput("organisationNr", "Organisation Nr")}
@@ -79,6 +83,10 @@ export default function CustomerCreatePage() {
 							Create Customer
 						</button>
 					</form>
+					<Link className="btn btn-secondary" to="/home">
+						Back
+					</Link>
+					<Footer />
 				</div>
 			) : (
 				<p>Loading data...</p>

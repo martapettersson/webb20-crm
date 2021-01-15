@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
 
 export default function CustomerEditPage(props) {
 	const customerId = props.match.params.id;
 	const [formData, setFormData] = useState({});
-	const { customerList, setCustomerList, setUser } = useContext(UserContext);
+	const { customerList, setCustomerList } = useContext(UserContext);
 	const customerItem = customerList.filter(
 		(customer) => customer.id == customerId
 	)[0];
@@ -52,14 +53,17 @@ export default function CustomerEditPage(props) {
 
 	const renderInput = (name, label, type) => {
 		return (
-			<div>
-				<label>{label}</label>
-				<input
-					type={type || "text"}
-					name={name}
-					onChange={handleOnChange}
-					value={formData[name] || ""}
-				/>
+			<div className="mb-3 form-group row">
+				<label className="col-sm-2 col-form-label">{label}</label>
+				<div className="col-sm-10">
+					<input
+						type={type || "text"}
+						name={name}
+						onChange={handleOnChange}
+						value={formData[name] || ""}
+						className="form-control "
+					/>
+				</div>
 			</div>
 		);
 	};
@@ -69,25 +73,28 @@ export default function CustomerEditPage(props) {
 			<NavBar />
 			<h1>Edit Customer</h1>
 			{customerList ? (
-				<form onSubmit={handleOnSubmit}>
-					{renderInput("name", "Customer Name")}
-					{renderInput("email", "Customer Email", "email")}
-					{renderInput("organisationNr", "Organisation Nr")}
-					{renderInput("paymentTerm", "Payment Term", "number")}
-					{renderInput("phoneNumber", "Phone Nr", "tel")}
-					{renderInput("reference", "Reference")}
-					{renderInput("vatNr", "VAT Nr")}
-					{renderInput("website", "Website", "url")}
-					<button className="btn btn-secondary" type="submit">
-						Update Customer
-					</button>
+				<div>
+					<form onSubmit={handleOnSubmit}>
+						{renderInput("name", "Customer Name")}
+						{renderInput("email", "Customer Email", "email")}
+						{renderInput("organisationNr", "Organisation Nr")}
+						{renderInput("paymentTerm", "Payment Term", "number")}
+						{renderInput("phoneNumber", "Phone Nr", "tel")}
+						{renderInput("reference", "Reference")}
+						{renderInput("vatNr", "VAT Nr")}
+						{renderInput("website", "Website", "url")}
+						<button className="btn btn-secondary" type="submit">
+							Update Customer
+						</button>
+					</form>
 					<Link className="btn btn-secondary" to="/home">
 						Back
 					</Link>
-				</form>
+				</div>
 			) : (
 				<p>Loading data...</p>
 			)}
+			<Footer />
 		</div>
 	);
 }
