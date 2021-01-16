@@ -3,6 +3,11 @@ import { useHistory, Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
 import Footer from "../components/Footer";
+import {
+	ButtonStyled,
+	ButtonEditStyled,
+	ButtonDeleteStyled,
+} from "../components/ButtonStyled";
 
 export default function CustomerDetailPage(props) {
 	const customerId = props.match.params.id;
@@ -90,15 +95,16 @@ export default function CustomerDetailPage(props) {
 							</tr>
 						</tbody>
 					</table>
-					<button className="btn btn-secondary" onClick={deleteCustomer}>
+					<ButtonDeleteStyled onClick={deleteCustomer}>
 						Delete Customer
-					</button>
-					<Link className="btn btn-secondary" to={`/home/${customerId}/edit`}>
-						Edit Customer
-					</Link>
-					<Link className="btn btn-secondary" to="/home">
-						Back
-					</Link>
+					</ButtonDeleteStyled>
+					<ButtonEditStyled>
+						<Link to={`/home/${customerId}/edit`}>Edit Customer</Link>
+					</ButtonEditStyled>
+					<ButtonStyled>
+						<Link to="/home">Back to Home</Link>
+					</ButtonStyled>
+
 					<Footer />
 				</div>
 			) : (

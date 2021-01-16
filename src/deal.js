@@ -2,7 +2,6 @@ import React from "react";
 const handshake = (
 	<svg
 		id="Capa_1"
-		enable-background="new 0 0 512 512"
 		height="75"
 		viewBox="0 0 512 512"
 		width="75"

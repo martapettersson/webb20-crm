@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { ButtonStyled, ButtonEditStyled } from "../components/ButtonStyled";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
@@ -86,13 +87,13 @@ export default function CustomerCreatePage() {
 						{renderInput("reference", "Reference")}
 						{renderInput("vatNr", "VAT Nr")}
 						{renderInput("website", "Website", "url")}
-						<button className="btn btn-secondary" type="submit">
-							Create Customer
-						</button>
+
+						<ButtonEditStyled type="submit">Create Customer</ButtonEditStyled>
+						<ButtonStyled>
+							<Link to="/home">Back</Link>
+						</ButtonStyled>
 					</form>
-					<Link className="btn btn-secondary" to="/home">
-						Back
-					</Link>
+
 					<Footer />
 				</div>
 			) : (

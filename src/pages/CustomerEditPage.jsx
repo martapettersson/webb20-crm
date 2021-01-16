@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
+import { ButtonEditStyled, ButtonStyled } from "../components/ButtonStyled";
 
 export default function CustomerEditPage(props) {
 	const customerId = props.match.params.id;
@@ -92,13 +93,11 @@ export default function CustomerEditPage(props) {
 						{renderInput("reference", "Reference")}
 						{renderInput("vatNr", "VAT Nr")}
 						{renderInput("website", "Website", "url")}
-						<button className="btn btn-secondary" type="submit">
-							Update Customer
-						</button>
+						<ButtonEditStyled type="submit">Update Customer</ButtonEditStyled>
+						<ButtonStyled>
+							<Link to={`/home/${customerId}/`}>Back</Link>
+						</ButtonStyled>
 					</form>
-					<Link className="btn btn-secondary" to="/home">
-						Back
-					</Link>
 				</div>
 			) : (
 				<p>Loading data...</p>

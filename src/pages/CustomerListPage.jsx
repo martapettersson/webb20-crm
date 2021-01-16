@@ -25,7 +25,7 @@ export default function CustomerListPage() {
 	return (
 		<div>
 			<NavBar />
-			<h3>Customers</h3>
+			<h1>Customers</h1>
 			{customerList ? (
 				<div>
 					<ul className="list-group">

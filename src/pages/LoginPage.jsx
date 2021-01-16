@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { ButtonStyled } from "../components/ButtonStyled";
 import { UserContext } from "../context/UserContext";
 
 export default function LoginPage() {
@@ -63,9 +64,7 @@ export default function LoginPage() {
 						className="form-control"
 					/>
 				</div>
-				<button className="btn btn-secondary" type="submit">
-					Log in
-				</button>
+				<ButtonStyled type="submit">Log in</ButtonStyled>
 			</form>
 		</div>
 	);
