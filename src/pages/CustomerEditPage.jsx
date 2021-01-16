@@ -7,7 +7,9 @@ import { UserContext } from "../context/UserContext";
 export default function CustomerEditPage(props) {
 	const customerId = props.match.params.id;
 	const [formData, setFormData] = useState({});
-	const { customerList, setCustomerList } = useContext(UserContext);
+	const { customerList, setCustomerList, validateForm } = useContext(
+		UserContext
+	);
 	const customerItem = customerList.filter(
 		(customer) => customer.id == customerId
 	)[0];
@@ -29,26 +31,33 @@ export default function CustomerEditPage(props) {
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-
-		const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
-		const token = localStorage.getItem("MARTA_WEBB20");
-		fetch(url, {
-			method: "PUT",
-			body: JSON.stringify(formData),
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				const newCustomerList = customerList.filter(
-					(customer) => customer.id != customerId
-				);
-				newCustomerList.push(data);
-				setCustomerList(newCustomerList);
-				history.push(`/home/${customerId}/`);
-			});
+		if (formData === customerItem) {
+			history.push(`/home/${customerId}/`);
+		} else if (validateForm(formData) === true) {
+			const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
+			const token = localStorage.getItem("MARTA_WEBB20");
+			fetch(url, {
+				method: "PUT",
+				body: JSON.stringify(formData),
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					const newCustomerList = customerList.filter(
+						(customer) => customer.id != customerId
+					);
+					newCustomerList.push(data);
+					setCustomerList(newCustomerList);
+					history.push(`/home/${customerId}/`);
+				});
+		} else {
+			alert(
+				"Payment Term must be a natural number and VAT Nr must start with SE and after that 10 digits"
+			);
+		}
 	};
 
 	const renderInput = (name, label, type) => {

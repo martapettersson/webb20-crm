@@ -10,6 +10,7 @@ export default function CustomerCreatePage() {
 		setCustomerList,
 		getCustomerList,
 		getUser,
+		validateForm,
 	} = useContext(UserContext);
 	const [formData, setFormData] = useState({});
 	const history = useHistory();
@@ -47,21 +48,27 @@ export default function CustomerCreatePage() {
 	//Create customer (formData), send to backend
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		const url = "https://frebi.willandskill.eu/api/v1/customers/";
-		const token = localStorage.getItem("MARTA_WEBB20");
-		fetch(url, {
-			method: "POST",
-			body: JSON.stringify(formData),
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setCustomerList([...customerList, data]);
-				history.push("/home");
-			});
+		if (validateForm(formData) === true) {
+			const url = "https://frebi.willandskill.eu/api/v1/customers/";
+			const token = localStorage.getItem("MARTA_WEBB20");
+			fetch(url, {
+				method: "POST",
+				body: JSON.stringify(formData),
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setCustomerList([...customerList, data]);
+					history.push("/home");
+				});
+		} else {
+			alert(
+				"Payment Term must be a natural number and VAT Nr must start with SE and after that 10 digits"
+			);
+		}
 	};
 
 	return (

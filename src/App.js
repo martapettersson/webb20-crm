@@ -39,6 +39,26 @@ export default function App() {
 			.then((data) => setUser(data));
 	};
 
+	const validateForm = (data) => {
+		if (data.vatNr && data.paymentTerm) {
+			const paymentTerm = data.paymentTerm;
+			const vatNr = data.vatNr;
+			const start = vatNr.slice(0, 2);
+			const afterSE = vatNr.slice(2);
+			if (
+				afterSE.length == 10 &&
+				start === "SE" &&
+				!isNaN(afterSE) &&
+				paymentTerm != "" &&
+				paymentTerm.slice(0, 1) != "-"
+			) {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	};
+
 	const userContextValue = {
 		customerList,
 		setCustomerList,
@@ -48,6 +68,7 @@ export default function App() {
 		getUser,
 		loginAlert,
 		setLoginAlert,
+		validateForm,
 	};
 
 	return (
