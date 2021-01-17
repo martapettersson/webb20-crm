@@ -89,9 +89,9 @@ export default function CustomerCreatePage() {
 						{renderInput("website", "Website", "url")}
 
 						<ButtonEditStyled type="submit">Create Customer</ButtonEditStyled>
-						<ButtonStyled>
-							<Link to="/home">Back</Link>
-						</ButtonStyled>
+						<Link to="/home">
+							<ButtonStyled>Back</ButtonStyled>
+						</Link>
 					</form>
 
 					<Footer />

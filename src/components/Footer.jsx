@@ -9,17 +9,15 @@ export default function Footer() {
 		localStorage.clear();
 	};
 	return (
-		<footer className="footer p-2 mt-auto py-3 bg-light d-flex justify-content-between">
-			<span className="navbar-text ">
+		<footer className="footer mt-auto py-3 bg-light d-flex justify-content-between">
+			<span className="navbar-text ml-2">
 				<strong>User:</strong> {user.firstName} {user.lastName},{" "}
 				<strong>Email:</strong> {user.email}
 			</span>
 			<span className="nav-item">
-				<ButtonStyled>
-					<Link onClick={logOut} to="/">
-						Log out
-					</Link>
-				</ButtonStyled>
+				<Link to="/">
+					<ButtonStyled onClick={logOut}>Log out</ButtonStyled>
+				</Link>
 			</span>
 		</footer>
 	);

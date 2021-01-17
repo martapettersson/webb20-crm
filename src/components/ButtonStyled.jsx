@@ -27,10 +27,6 @@ export const ButtonStyled = styled.button`
 		position: relative;
 		top: 1px;
 	}
-	a {
-		color: #777777;
-		font-weight: bold;
-	}
 `;
 
 export const ButtonEditStyled = styled(ButtonStyled)`
@@ -45,9 +41,6 @@ export const ButtonEditStyled = styled(ButtonStyled)`
 		background: linear-gradient(to bottom, #a5cc52 5%, #b8e356 100%);
 		background-color: #a5cc52;
 	}
-	a {
-		color: #ffffff;
-	}
 `;
 
 export const ButtonDeleteStyled = styled(ButtonStyled)`
@@ -61,9 +54,6 @@ export const ButtonDeleteStyled = styled(ButtonStyled)`
 	&:focus {
 		background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
 		background-color: #c62d1f;
-	}
-	a {
-		color: #ffffff;
 	}
 `;
 

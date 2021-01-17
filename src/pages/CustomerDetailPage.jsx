@@ -98,13 +98,12 @@ export default function CustomerDetailPage(props) {
 					<ButtonDeleteStyled onClick={deleteCustomer}>
 						Delete Customer
 					</ButtonDeleteStyled>
-					<ButtonEditStyled>
-						<Link to={`/home/${customerId}/edit`}>Edit Customer</Link>
-					</ButtonEditStyled>
-					<ButtonStyled>
-						<Link to="/home">Back to Home</Link>
-					</ButtonStyled>
-
+					<Link to={`/home/${customerId}/edit`}>
+						<ButtonEditStyled>Edit Customer</ButtonEditStyled>
+					</Link>
+					<Link to="/home">
+						<ButtonStyled>Back to Home</ButtonStyled>
+					</Link>
 					<Footer />
 				</div>
 			) : (

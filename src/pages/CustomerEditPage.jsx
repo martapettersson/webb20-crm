@@ -94,9 +94,9 @@ export default function CustomerEditPage(props) {
 						{renderInput("vatNr", "VAT Nr")}
 						{renderInput("website", "Website", "url")}
 						<ButtonEditStyled type="submit">Update Customer</ButtonEditStyled>
-						<ButtonStyled>
-							<Link to={`/home/${customerId}/`}>Back</Link>
-						</ButtonStyled>
+						<Link to={`/home/${customerId}/`}>
+							<ButtonStyled>Back</ButtonStyled>
+						</Link>
 					</form>
 				</div>
 			) : (

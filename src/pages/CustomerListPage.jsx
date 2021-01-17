@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CustomerListItem from "../components/CustomerListItem";
 import { UserContext } from "../context/UserContext";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { ButtonEditStyled } from "../components/ButtonStyled";
 
 export default function CustomerListPage() {
 	const {
@@ -33,6 +35,11 @@ export default function CustomerListPage() {
 							return <CustomerListItem key={item.id} customerData={item} />;
 						})}
 					</ul>
+					<div className="mt-2">
+						<Link to="/home/create">
+							<ButtonEditStyled>Create New Customer</ButtonEditStyled>
+						</Link>
+					</div>
 					<Footer />
 				</div>
 			) : (

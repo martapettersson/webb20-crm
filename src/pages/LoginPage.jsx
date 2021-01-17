@@ -41,7 +41,7 @@ export default function LoginPage() {
 
 	return (
 		<div>
-			<h2>Welcome to CRM</h2>
+			<h2>Welcome to CRM by Marta Pettersson</h2>
 			<h4>Log in</h4>
 			<form onSubmit={handleOnSubmit}>
 				<div className="mb-3">
