@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
@@ -11,21 +11,18 @@ import {
 
 export default function CustomerDetailPage(props) {
 	const customerId = props.match.params.id;
-	const {
-		customerList,
-		setCustomerList,
-		getCustomerList,
-		getUser,
-	} = useContext(UserContext);
-	const customerItem = customerList.filter(
-		(customer) => customer.id == customerId
-	)[0];
+	const { customerList, setCustomerList } = useContext(UserContext);
+	const [customerItem, setCustomerItem] = useState(null);
+
 	const history = useHistory();
 
 	useEffect(() => {
 		if (!customerList) {
-			getCustomerList();
-			getUser();
+			history.push("/home");
+		} else {
+			setCustomerItem(
+				customerList.filter((customer) => customer.id == customerId)[0]
+			);
 		}
 	}, []);
 

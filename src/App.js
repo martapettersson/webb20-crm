@@ -41,7 +41,8 @@ export default function App() {
 
 	const validateForm = (data) => {
 		if (data.vatNr && data.paymentTerm) {
-			const paymentTerm = data.paymentTerm;
+			const number = data.paymentTerm;
+			const paymentTerm = number.toString();
 			const vatNr = data.vatNr;
 			const start = vatNr.slice(0, 2);
 			const afterSE = vatNr.slice(2);
