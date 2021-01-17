@@ -18,7 +18,6 @@ export default function CustomerListPage() {
 		if (!customerList && loginAlert !== "login") {
 			getCustomerList();
 			getUser();
-			console.log("2 anrop");
 			setLoginAlert("");
 		} else if (loginAlert === "login") {
 			setLoginAlert("");

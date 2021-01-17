@@ -33,7 +33,6 @@ export default function LoginPage() {
 				localStorage.setItem("MARTA_WEBB20", data.token);
 				setLoginAlert("login");
 				getCustomerList();
-				console.log("1 anrop");
 				getUser();
 				history.push("/home");
 			});

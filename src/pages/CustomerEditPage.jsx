@@ -1,104 +1,32 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../context/UserContext";
-import { ButtonEditStyled, ButtonStyled } from "../components/ButtonStyled";
+import CustomerEditItem from "../components/CustomerEditItem";
 
 export default function CustomerEditPage(props) {
+	const { customerList } = useContext(UserContext);
 	const customerId = props.match.params.id;
-	const [formData, setFormData] = useState({});
-	const { customerList, setCustomerList, validateForm } = useContext(
-		UserContext
-	);
-	const customerItem = customerList.filter(
-		(customer) => customer.id == customerId
-	)[0];
+	const [customerItem, setCustomerItem] = useState(null);
 	const history = useHistory();
 
 	useEffect(() => {
 		if (!customerList) {
-			history.push(`/home/${customerId}/`);
+			history.push("/home");
 		} else {
-			setFormData(customerItem);
-		}
-	}, []);
-
-	const handleOnChange = (e) => {
-		const name = e.target.name;
-		const value = e.target.value;
-		setFormData({ ...formData, [name]: value });
-	};
-
-	const handleOnSubmit = (e) => {
-		e.preventDefault();
-		if (formData === customerItem) {
-			history.push(`/home/${customerId}/`);
-		} else if (validateForm(formData) === true) {
-			const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
-			const token = localStorage.getItem("MARTA_WEBB20");
-			fetch(url, {
-				method: "PUT",
-				body: JSON.stringify(formData),
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					const newCustomerList = customerList.filter(
-						(customer) => customer.id != customerId
-					);
-					newCustomerList.push(data);
-					setCustomerList(newCustomerList);
-					history.push(`/home/${customerId}/`);
-				});
-		} else {
-			alert(
-				"Payment Term must be a natural number and VAT Nr must start with SE and after that 10 digits"
+			setCustomerItem(
+				customerList.filter((customer) => customer.id == customerId)[0]
 			);
 		}
-	};
-
-	const renderInput = (name, label, type) => {
-		return (
-			<div className="mb-3 form-group row">
-				<label className="col-sm-2 col-form-label">{label}</label>
-				<div className="col-sm-10">
-					<input
-						type={type || "text"}
-						name={name}
-						onChange={handleOnChange}
-						value={formData[name] || ""}
-						className="form-control "
-					/>
-				</div>
-			</div>
-		);
-	};
+	}, []);
 
 	return (
 		<div>
 			<NavBar />
 			<h1>Edit Customer</h1>
-			{customerList ? (
-				<div>
-					<form onSubmit={handleOnSubmit}>
-						{renderInput("name", "Customer Name")}
-						{renderInput("email", "Customer Email", "email")}
-						{renderInput("organisationNr", "Organisation Nr")}
-						{renderInput("paymentTerm", "Payment Term", "number")}
-						{renderInput("phoneNumber", "Phone Nr", "tel")}
-						{renderInput("reference", "Reference")}
-						{renderInput("vatNr", "VAT Nr")}
-						{renderInput("website", "Website", "url")}
-						<ButtonEditStyled type="submit">Update Customer</ButtonEditStyled>
-						<Link to={`/home/${customerId}/`}>
-							<ButtonStyled>Back</ButtonStyled>
-						</Link>
-					</form>
-				</div>
+			{customerItem ? (
+				<CustomerEditItem customerItem={customerItem} customerId={customerId} />
 			) : (
 				<p>Loading data...</p>
 			)}
