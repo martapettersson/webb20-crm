@@ -72,12 +72,12 @@ export default function CustomerEditItem({ customerItem, customerId }) {
 		<div>
 			<form onSubmit={handleOnSubmit}>
 				{renderInput("name", "Customer Name")}
-				{renderInput("email", "Customer Email", "email")}
 				{renderInput("organisationNr", "Organisation Nr")}
 				{renderInput("paymentTerm", "Payment Term", "number")}
 				{renderInput("phoneNumber", "Phone Nr", "tel")}
 				{renderInput("reference", "Reference")}
 				{renderInput("vatNr", "VAT Nr")}
+				{renderInput("email", "Customer Email", "email")}
 				{renderInput("website", "Website", "url")}
 				<ButtonEditStyled type="submit">Update Customer</ButtonEditStyled>
 				<Link to={`/home/${customerId}/`}>
