@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/webb20-crm/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/webb20-crm/static/js/main.2fa28269.chunk.js",
+    "main.js.map": "/webb20-crm/static/js/main.2fa28269.chunk.js.map",
+    "runtime-main.js": "/webb20-crm/static/js/runtime-main.554418ba.js",
+    "runtime-main.js.map": "/webb20-crm/static/js/runtime-main.554418ba.js.map",
+    "static/css/2.1f208231.chunk.css": "/webb20-crm/static/css/2.1f208231.chunk.css",
+    "static/js/2.3085d8a5.chunk.js": "/webb20-crm/static/js/2.3085d8a5.chunk.js",
+    "static/js/2.3085d8a5.chunk.js.map": "/webb20-crm/static/js/2.3085d8a5.chunk.js.map",
+    "static/js/3.88a75a02.chunk.js": "/webb20-crm/static/js/3.88a75a02.chunk.js",
+    "static/js/3.88a75a02.chunk.js.map": "/webb20-crm/static/js/3.88a75a02.chunk.js.map",
+    "index.html": "/webb20-crm/index.html",
+    "static/css/2.1f208231.chunk.css.map": "/webb20-crm/static/css/2.1f208231.chunk.css.map",
+    "static/css/main.6dea0f05.chunk.css.map": "/webb20-crm/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.3085d8a5.chunk.js.LICENSE.txt": "/webb20-crm/static/js/2.3085d8a5.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.554418ba.js",
+    "static/css/2.1f208231.chunk.css",
+    "static/js/2.3085d8a5.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.2fa28269.chunk.js"
+  ]
+}
