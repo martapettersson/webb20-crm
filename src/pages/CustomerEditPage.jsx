@@ -12,6 +12,7 @@ export default function CustomerEditPage(props) {
 	const history = useHistory();
 
 	useEffect(() => {
+		//if user refresh page go to home to fetch the customerlist
 		if (!customerList) {
 			history.push("/home");
 		} else {
